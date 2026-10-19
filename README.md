@@ -8,7 +8,7 @@ prijsplafond en je gezamenlijke importlimiet.
 
 **Alleen advies.** De integratie leest alleen Home Assistant-states. Ze schakelt
 geen lader, batterij of omvormer en bevat geen schrijfpad naar apparaten. Je
-kunt zelf een automatisatie maken op `binary_sensor.dynamic_energy_ev_charging_advised`.
+kunt zelf een automatisatie maken op `binary_sensor.dynamic_energy_ev_charge_advised`.
 
 ## Installeren
 
@@ -27,10 +27,12 @@ kunt zelf een automatisatie maken op `binary_sensor.dynamic_energy_ev_charging_a
 | `sensor.dynamic_energy_ev_planned_energy` | Geplande energie (kWh) |
 | `sensor.dynamic_energy_ev_plan_cost` | Plankost (EUR) |
 | `sensor.dynamic_energy_ev_next_charge_start` | Start van het eerstvolgende laadkwartier |
-| `binary_sensor.dynamic_energy_ev_charging_advised` | Aan als het huidige kwartier in het plan zit |
+| `binary_sensor.dynamic_energy_ev_charge_advised` | Aan als het huidige kwartier in het plan zit |
 | `number.*`, `time.*`, `switch.*` | Instellingen: importlimiet, prijsplafond, doel-SOC, SOC bij aankomst, accucapaciteit, laadvermogen, basisverbruik, vertrektijd, planning aan/uit |
 
-Entiteit-ID's zijn onafhankelijk van de taal van Home Assistant.
+Entiteit-ID's zijn onafhankelijk van de taal van Home Assistant (bijvoorbeeld
+`number.dynamic_energy_price_ceiling`, `switch.dynamic_energy_ev_planning`,
+`time.dynamic_energy_ev_departure`); alleen de weergavenamen zijn vertaald.
 
 ## Hoe het plan werkt
 

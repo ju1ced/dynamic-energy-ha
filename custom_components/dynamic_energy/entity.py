@@ -16,6 +16,7 @@ class DynamicEnergyEntity(CoordinatorEntity[DynamicEnergyCoordinator]):
         super().__init__(coordinator)
         self._attr_unique_id = f"{entry_id}_{key}"
         self._attr_translation_key = key
+        self._object_id = key  # Home Assistant prefixes the device name
         self._attr_device_info = DeviceInfo(
             identifiers={(DOMAIN, entry_id)},
             name="Dynamic Energy",
@@ -23,3 +24,8 @@ class DynamicEnergyEntity(CoordinatorEntity[DynamicEnergyCoordinator]):
             model="EV planner (advisory)",
             entry_type=DeviceEntryType.SERVICE,
         )
+
+    @property
+    def suggested_object_id(self) -> str | None:
+        """Keep entity IDs identical in every Home Assistant language."""
+        return self._object_id

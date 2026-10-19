@@ -35,6 +35,7 @@ async def _setup(hass: HomeAssistant, **data) -> MockConfigEntry:
 
 
 async def test_creates_plan_and_settings_entities(hass: HomeAssistant):
+    hass.config.language = "nl"  # entity IDs must not depend on the language
     _set_prices(hass)
     await _setup(hass)
 
@@ -46,11 +47,11 @@ async def test_creates_plan_and_settings_entities(hass: HomeAssistant):
         "sensor.dynamic_energy_ev_planned_energy",
         "sensor.dynamic_energy_ev_plan_cost",
         "sensor.dynamic_energy_ev_next_charge_start",
-        "binary_sensor.dynamic_energy_ev_charging_advised",
+        "binary_sensor.dynamic_energy_ev_charge_advised",
         "number.dynamic_energy_price_ceiling",
-        "number.dynamic_energy_maximum_grid_import",
-        "switch.dynamic_energy_ev_planning_enabled",
-        "time.dynamic_energy_ev_departure_time",
+        "number.dynamic_energy_max_grid_import_kw",
+        "switch.dynamic_energy_ev_planning",
+        "time.dynamic_energy_ev_departure",
     ):
         assert hass.states.get(entity_id) is not None, entity_id
 
@@ -68,7 +69,7 @@ async def test_settings_change_the_plan_and_switch_disables_it(hass: HomeAssista
     assert blocked.attributes["planned_kwh"] == 0
 
     await hass.services.async_call(
-        "switch", "turn_off", {"entity_id": "switch.dynamic_energy_ev_planning_enabled"}, blocking=True,
+        "switch", "turn_off", {"entity_id": "switch.dynamic_energy_ev_planning"}, blocking=True,
     )
     await hass.async_block_till_done()
     assert hass.states.get("sensor.dynamic_energy_ev_plan").state == "DISABLED"
