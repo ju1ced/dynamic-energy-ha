@@ -117,3 +117,24 @@ def test_parse_hourly_and_rejects_bad_rows():
     conflicting = {"today": [{"start": "2026-10-19T10:00:00+02:00", "all_in": 0.3},
                              {"start": "2026-10-19T10:00:00+02:00", "all_in": 0.4}]}
     assert parse_price_slots(conflicting) == []
+
+
+from custom_components.dynamic_energy.planner import SlotContext  # noqa: E402
+
+
+def test_context_reduces_headroom_and_prefers_pv_surplus_slots():
+    prices = [0.30] * 32
+    context = {}
+    for i in range(32):
+        start = BASE + timedelta(minutes=15 * i)
+        # quarters 4-7 have 5 kW PV surplus; quarters 8-11 are busy with the battery
+        net = -5.0 if 4 <= i < 8 else 6.0 if 8 <= i < 12 else 0.6
+        context[start] = SlotContext(base_net_kw=net, export_price=0.05)
+    plan = plan_ev_charging(slots(prices), BASE, settings(needed_kwh=4.0, price_ceiling=0.5), context)
+    chosen = [s.start for s in plan.slots]
+    assert chosen == [BASE + timedelta(minutes=15 * i) for i in (4, 5, 6)]  # the surplus slots first
+    busy = [s for s in plan.slots if BASE + timedelta(minutes=15 * 8) <= s.start < BASE + timedelta(minutes=15 * 12)]
+    assert all(s.kw <= 1.0 + 1e-9 for s in busy)  # 7 kW limit - 6 kW house/battery
+    # two slots take 1.85 kWh (1.25 kWh surplus at the export price, 0.6 kWh imported),
+    # the third takes the last 0.3 kWh entirely from surplus
+    assert abs(plan.cost_eur - (2 * (1.25 * 0.05 + 0.6 * 0.30) + 0.3 * 0.05)) < 1e-6

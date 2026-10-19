@@ -5,8 +5,14 @@
         "title": "Dynamic Energy",
         "description": "Choose the price sensor of your dynamic contract (the BE electricity prices integration, 'Current price' sensor) and optionally the car's state of charge.",
         "data": {
-          "price_entity": "Price sensor (current price)",
-          "ev_soc_entity": "Car state of charge (optional)"
+          "price_entity": "Import price sensor (current price)",
+          "export_price_entity": "Export price sensor (optional)",
+          "battery_soc_entity": "Home battery state of charge (optional)",
+          "house_power_entity": "House power consumption (optional)",
+          "ev_power_entity": "EV charging power, subtracted from the house load (optional)",
+          "month_peak_entity": "Monthly peak in kW (optional)",
+          "ev_soc_entity": "Car state of charge (optional)",
+          "pv_forecast_entities": "PV forecast today and tomorrow, Solcast (optional)"
         }
       }
     },
@@ -23,8 +29,14 @@
       "init": {
         "title": "Dynamic Energy",
         "data": {
-          "price_entity": "Price sensor (current price)",
-          "ev_soc_entity": "Car state of charge (optional)"
+          "price_entity": "Import price sensor (current price)",
+          "export_price_entity": "Export price sensor (optional)",
+          "battery_soc_entity": "Home battery state of charge (optional)",
+          "house_power_entity": "House power consumption (optional)",
+          "ev_power_entity": "EV charging power, subtracted from the house load (optional)",
+          "month_peak_entity": "Monthly peak in kW (optional)",
+          "ev_soc_entity": "Car state of charge (optional)",
+          "pv_forecast_entities": "PV forecast today and tomorrow, Solcast (optional)"
         }
       }
     },
@@ -53,6 +65,26 @@
       },
       "ev_next_charge_start": {
         "name": "EV next charge start"
+      },
+      "battery_plan": {
+        "name": "Battery plan",
+        "state": {
+          "PLANNED": "Planned",
+          "NO_ACTION": "No action",
+          "DISABLED": "Disabled"
+        }
+      },
+      "battery_action_now": {
+        "name": "Battery now",
+        "state": {
+          "CHARGE_FROM_GRID": "Charge from grid",
+          "STORE_PV_SURPLUS": "Store PV surplus",
+          "DISCHARGE_TO_LOAD": "Discharge to house",
+          "HOLD": "Hold"
+        }
+      },
+      "battery_planned_saving": {
+        "name": "Battery planned saving"
       }
     },
     "binary_sensor": {
@@ -81,11 +113,41 @@
       },
       "base_load_kw": {
         "name": "House base load"
+      },
+      "battery_capacity_kwh": {
+        "name": "Battery usable capacity"
+      },
+      "battery_max_charge_kw": {
+        "name": "Battery maximum charge power"
+      },
+      "battery_max_discharge_kw": {
+        "name": "Battery maximum discharge power"
+      },
+      "battery_efficiency": {
+        "name": "Battery round-trip efficiency"
+      },
+      "battery_min_soc": {
+        "name": "Battery minimum SOC"
+      },
+      "battery_max_soc": {
+        "name": "Battery maximum SOC"
+      },
+      "battery_degradation": {
+        "name": "Battery wear cost per discharged kWh"
+      },
+      "peak_allowance_kw": {
+        "name": "Allowed peak increase"
+      },
+      "export_price_fallback": {
+        "name": "Export price when no sensor is set"
       }
     },
     "switch": {
       "ev_planning": {
         "name": "EV planning enabled"
+      },
+      "battery_planning": {
+        "name": "Battery planning enabled"
       }
     },
     "time": {

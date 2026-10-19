@@ -30,6 +30,15 @@ SPECS = (
     _Spec("ev_capacity_kwh", 1.0, 200.0, 1.0, UnitOfEnergy.KILO_WATT_HOUR),
     _Spec("ev_max_charge_kw", 1.0, 22.0, 0.1, UnitOfPower.KILO_WATT),
     _Spec("base_load_kw", 0.0, 10.0, 0.1, UnitOfPower.KILO_WATT),
+    _Spec("battery_capacity_kwh", 0.5, 100.0, 0.01, UnitOfEnergy.KILO_WATT_HOUR),
+    _Spec("battery_max_charge_kw", 0.5, 25.0, 0.1, UnitOfPower.KILO_WATT),
+    _Spec("battery_max_discharge_kw", 0.5, 25.0, 0.1, UnitOfPower.KILO_WATT),
+    _Spec("battery_efficiency", 50.0, 100.0, 1.0, PERCENTAGE),
+    _Spec("battery_min_soc", 0.0, 50.0, 1.0, PERCENTAGE),
+    _Spec("battery_max_soc", 50.0, 100.0, 1.0, PERCENTAGE),
+    _Spec("battery_degradation", 0.0, 1.0, 0.005, "EUR/kWh"),
+    _Spec("peak_allowance_kw", 0.0, 10.0, 0.1, UnitOfPower.KILO_WATT),
+    _Spec("export_price_fallback", -0.5, 1.0, 0.005, "EUR/kWh"),
 )
 
 

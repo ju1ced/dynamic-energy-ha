@@ -9,18 +9,27 @@ from homeassistant.config_entries import ConfigFlow, ConfigFlowResult, OptionsFl
 from homeassistant.core import callback
 from homeassistant.helpers.selector import EntitySelector, EntitySelectorConfig
 
-from .const import CONF_EV_SOC_ENTITY, CONF_PRICE_ENTITY, DOMAIN
+from .const import (
+    CONF_PRICE_ENTITY,
+    CONF_PV_FORECAST_ENTITIES,
+    DOMAIN,
+    OPTIONAL_ENTITY_KEYS,
+)
 
 
 def _schema(defaults: dict[str, Any]) -> vol.Schema:
+    sensor = EntitySelector(EntitySelectorConfig(domain="sensor"))
     fields: dict[Any, Any] = {
-        vol.Required(
-            CONF_PRICE_ENTITY, default=defaults.get(CONF_PRICE_ENTITY)
-        ): EntitySelector(EntitySelectorConfig(domain="sensor")),
+        vol.Required(CONF_PRICE_ENTITY, default=defaults.get(CONF_PRICE_ENTITY)): sensor,
     }
-    soc = defaults.get(CONF_EV_SOC_ENTITY)
-    key = vol.Optional(CONF_EV_SOC_ENTITY, description={"suggested_value": soc})
-    fields[key] = EntitySelector(EntitySelectorConfig(domain="sensor"))
+    for key in OPTIONAL_ENTITY_KEYS:
+        fields[vol.Optional(key, description={"suggested_value": defaults.get(key)})] = sensor
+    fields[
+        vol.Optional(
+            CONF_PV_FORECAST_ENTITIES,
+            description={"suggested_value": defaults.get(CONF_PV_FORECAST_ENTITIES)},
+        )
+    ] = EntitySelector(EntitySelectorConfig(domain="sensor", multiple=True))
     return vol.Schema(fields)
 
 
@@ -62,7 +71,7 @@ class DynamicEnergyOptionsFlow(OptionsFlow):
         self, user_input: dict[str, Any] | None = None
     ) -> ConfigFlowResult:
         errors: dict[str, str] = {}
-        current = {**self.config_entry.data, **self.config_entry.options}
+        current = dict(self.config_entry.options or self.config_entry.data)
         if user_input is not None:
             error = _price_entity_error(self.hass, user_input[CONF_PRICE_ENTITY])
             if error is None:

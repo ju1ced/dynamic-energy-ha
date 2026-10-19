@@ -5,8 +5,14 @@
         "title": "Dynamic Energy",
         "description": "Kies de prijssensor van je dynamisch contract (de integratie BE electricity prices, sensor 'Huidige prijs') en optioneel de laadtoestand van je auto.",
         "data": {
-          "price_entity": "Prijssensor (huidige prijs)",
-          "ev_soc_entity": "Laadtoestand auto (optioneel)"
+          "price_entity": "Prijssensor afname (huidige prijs)",
+          "export_price_entity": "Prijssensor injectie (optioneel)",
+          "battery_soc_entity": "Laadtoestand thuisbatterij (optioneel)",
+          "house_power_entity": "Huisverbruik, vermogen (optioneel)",
+          "ev_power_entity": "EV-laadvermogen, wordt van het huisverbruik afgetrokken (optioneel)",
+          "month_peak_entity": "Maandpiek in kW (optioneel)",
+          "ev_soc_entity": "Laadtoestand auto (optioneel)",
+          "pv_forecast_entities": "PV-voorspelling vandaag en morgen, Solcast (optioneel)"
         }
       }
     },
@@ -23,8 +29,14 @@
       "init": {
         "title": "Dynamic Energy",
         "data": {
-          "price_entity": "Prijssensor (huidige prijs)",
-          "ev_soc_entity": "Laadtoestand auto (optioneel)"
+          "price_entity": "Prijssensor afname (huidige prijs)",
+          "export_price_entity": "Prijssensor injectie (optioneel)",
+          "battery_soc_entity": "Laadtoestand thuisbatterij (optioneel)",
+          "house_power_entity": "Huisverbruik, vermogen (optioneel)",
+          "ev_power_entity": "EV-laadvermogen, wordt van het huisverbruik afgetrokken (optioneel)",
+          "month_peak_entity": "Maandpiek in kW (optioneel)",
+          "ev_soc_entity": "Laadtoestand auto (optioneel)",
+          "pv_forecast_entities": "PV-voorspelling vandaag en morgen, Solcast (optioneel)"
         }
       }
     },
@@ -53,6 +65,26 @@
       },
       "ev_next_charge_start": {
         "name": "EV volgende laadstart"
+      },
+      "battery_plan": {
+        "name": "Batterijplan",
+        "state": {
+          "PLANNED": "Gepland",
+          "NO_ACTION": "Geen actie",
+          "DISABLED": "Uitgeschakeld"
+        }
+      },
+      "battery_action_now": {
+        "name": "Batterij nu",
+        "state": {
+          "CHARGE_FROM_GRID": "Laden van het net",
+          "STORE_PV_SURPLUS": "PV-overschot opslaan",
+          "DISCHARGE_TO_LOAD": "Ontladen naar huis",
+          "HOLD": "Niets doen"
+        }
+      },
+      "battery_planned_saving": {
+        "name": "Batterij geplande besparing"
       }
     },
     "binary_sensor": {
@@ -81,11 +113,41 @@
       },
       "base_load_kw": {
         "name": "Basisverbruik huis"
+      },
+      "battery_capacity_kwh": {
+        "name": "Batterij bruikbare capaciteit"
+      },
+      "battery_max_charge_kw": {
+        "name": "Batterij maximaal laadvermogen"
+      },
+      "battery_max_discharge_kw": {
+        "name": "Batterij maximaal ontlaadvermogen"
+      },
+      "battery_efficiency": {
+        "name": "Batterij rendement (heen en terug)"
+      },
+      "battery_min_soc": {
+        "name": "Batterij minimum-SOC"
+      },
+      "battery_max_soc": {
+        "name": "Batterij maximum-SOC"
+      },
+      "battery_degradation": {
+        "name": "Batterij slijtagekost per ontladen kWh"
+      },
+      "peak_allowance_kw": {
+        "name": "Toegestane piekverhoging"
+      },
+      "export_price_fallback": {
+        "name": "Injectieprijs als er geen sensor is"
       }
     },
     "switch": {
       "ev_planning": {
         "name": "EV-planning actief"
+      },
+      "battery_planning": {
+        "name": "Batterijplanning actief"
       }
     },
     "time": {

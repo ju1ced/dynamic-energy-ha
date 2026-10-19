@@ -22,4 +22,4 @@ class EvChargeAdvisedBinarySensor(DynamicEnergyEntity, BinarySensorEntity):
     @property
     def is_on(self) -> bool:
         now = dt_util.utcnow()
-        return any(slot.start <= now < slot.end for slot in self.coordinator.data.slots)
+        return any(slot.start <= now < slot.end for slot in self.coordinator.data.ev.slots)
