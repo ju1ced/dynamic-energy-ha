@@ -1,0 +1,97 @@
+{
+  "config": {
+    "step": {
+      "user": {
+        "title": "Dynamic Energy",
+        "description": "Kies de prijssensor van je dynamisch contract (de integratie BE electricity prices, sensor 'Huidige prijs') en optioneel de laadtoestand van je auto.",
+        "data": {
+          "price_entity": "Prijssensor (huidige prijs)",
+          "ev_soc_entity": "Laadtoestand auto (optioneel)"
+        }
+      }
+    },
+    "error": {
+      "price_entity_not_found": "Deze sensor bestaat niet.",
+      "price_entity_without_prices": "Deze sensor heeft geen 'today'-attribuut met kwartierprijzen."
+    },
+    "abort": {
+      "already_configured": "Dynamic Energy is al ingesteld."
+    }
+  },
+  "options": {
+    "step": {
+      "init": {
+        "title": "Dynamic Energy",
+        "data": {
+          "price_entity": "Prijssensor (huidige prijs)",
+          "ev_soc_entity": "Laadtoestand auto (optioneel)"
+        }
+      }
+    },
+    "error": {
+      "price_entity_not_found": "Deze sensor bestaat niet.",
+      "price_entity_without_prices": "Deze sensor heeft geen 'today'-attribuut met kwartierprijzen."
+    }
+  },
+  "entity": {
+    "sensor": {
+      "ev_plan": {
+        "name": "EV-plan",
+        "state": {
+          "PLANNED": "Gepland",
+          "TARGET_REACHED": "Doel bereikt",
+          "INCOMPLETE": "Onvolledig",
+          "DISABLED": "Uitgeschakeld",
+          "NO_PRICES": "Geen prijzen"
+        }
+      },
+      "ev_planned_energy": {
+        "name": "EV geplande energie"
+      },
+      "ev_plan_cost": {
+        "name": "EV plankost"
+      },
+      "ev_next_charge_start": {
+        "name": "EV volgende laadstart"
+      }
+    },
+    "binary_sensor": {
+      "ev_charge_advised": {
+        "name": "EV laden aanbevolen"
+      }
+    },
+    "number": {
+      "max_grid_import_kw": {
+        "name": "Maximale netimport"
+      },
+      "price_ceiling": {
+        "name": "Prijsplafond"
+      },
+      "ev_target_soc": {
+        "name": "EV doel-SOC"
+      },
+      "ev_start_soc": {
+        "name": "EV SOC bij aankomst"
+      },
+      "ev_capacity_kwh": {
+        "name": "EV accucapaciteit"
+      },
+      "ev_max_charge_kw": {
+        "name": "EV maximaal laadvermogen"
+      },
+      "base_load_kw": {
+        "name": "Basisverbruik huis"
+      }
+    },
+    "switch": {
+      "ev_planning": {
+        "name": "EV-planning actief"
+      }
+    },
+    "time": {
+      "ev_departure": {
+        "name": "EV vertrektijd"
+      }
+    }
+  }
+}

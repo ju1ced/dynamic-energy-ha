@@ -1,0 +1,97 @@
+{
+  "config": {
+    "step": {
+      "user": {
+        "title": "Dynamic Energy",
+        "description": "Choose the price sensor of your dynamic contract (the BE electricity prices integration, 'Current price' sensor) and optionally the car's state of charge.",
+        "data": {
+          "price_entity": "Price sensor (current price)",
+          "ev_soc_entity": "Car state of charge (optional)"
+        }
+      }
+    },
+    "error": {
+      "price_entity_not_found": "This sensor does not exist.",
+      "price_entity_without_prices": "This sensor has no 'today' attribute with quarter-hour prices."
+    },
+    "abort": {
+      "already_configured": "Dynamic Energy is already set up."
+    }
+  },
+  "options": {
+    "step": {
+      "init": {
+        "title": "Dynamic Energy",
+        "data": {
+          "price_entity": "Price sensor (current price)",
+          "ev_soc_entity": "Car state of charge (optional)"
+        }
+      }
+    },
+    "error": {
+      "price_entity_not_found": "This sensor does not exist.",
+      "price_entity_without_prices": "This sensor has no 'today' attribute with quarter-hour prices."
+    }
+  },
+  "entity": {
+    "sensor": {
+      "ev_plan": {
+        "name": "EV plan",
+        "state": {
+          "PLANNED": "Planned",
+          "TARGET_REACHED": "Target reached",
+          "INCOMPLETE": "Incomplete",
+          "DISABLED": "Disabled",
+          "NO_PRICES": "No prices"
+        }
+      },
+      "ev_planned_energy": {
+        "name": "EV planned energy"
+      },
+      "ev_plan_cost": {
+        "name": "EV plan cost"
+      },
+      "ev_next_charge_start": {
+        "name": "EV next charge start"
+      }
+    },
+    "binary_sensor": {
+      "ev_charge_advised": {
+        "name": "EV charging advised"
+      }
+    },
+    "number": {
+      "max_grid_import_kw": {
+        "name": "Maximum grid import"
+      },
+      "price_ceiling": {
+        "name": "Price ceiling"
+      },
+      "ev_target_soc": {
+        "name": "EV target SOC"
+      },
+      "ev_start_soc": {
+        "name": "EV SOC on arrival"
+      },
+      "ev_capacity_kwh": {
+        "name": "EV battery capacity"
+      },
+      "ev_max_charge_kw": {
+        "name": "EV maximum charge power"
+      },
+      "base_load_kw": {
+        "name": "House base load"
+      }
+    },
+    "switch": {
+      "ev_planning": {
+        "name": "EV planning enabled"
+      }
+    },
+    "time": {
+      "ev_departure": {
+        "name": "EV departure time"
+      }
+    }
+  }
+}
